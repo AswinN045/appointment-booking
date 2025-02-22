@@ -3,20 +3,22 @@ import ReactDOM from 'react-dom';
 import AppointmentBooking from './components/AppointmentBooking';
 import './components/AppointmentBooking.css';
 
-const initAppointmentBooking = (containerId, apiBaseUrl = 'http://localhost:8081/api') => {
-    const container = document.getElementById(containerId);
-    if (!container) {
-        console.error(`Container with ID "${containerId}" not found`);
+(function() {
+  window.AppointmentBookingPlugin = {
+    init: (containerId, apiBaseUrl = 'http://localhost:8081/api') => {
+      console.log('Init called with:', containerId, apiBaseUrl);
+      const container = document.getElementById(containerId);
+      if (!container) {
+        console.error('Container not found:', containerId);
         return;
-    }
-    ReactDOM.render(<AppointmentBooking apiBaseUrl={apiBaseUrl} />, container);
-};
-
-// Expose globally
-window.AppointmentBookingPlugin = {
-    init: initAppointmentBooking,
-    destroy: (containerId) => {
-        const container = document.getElementById(containerId);
-        if (container) ReactDOM.unmountComponentAtNode(container);
+      }
+      ReactDOM.render(<AppointmentBooking apiBaseUrl={apiBaseUrl} />, container);
     },
-};
+    destroy: (containerId) => {
+      console.log('Destroy called for:', containerId);
+      const container = document.getElementById(containerId);
+      if (container) ReactDOM.unmountComponentAtNode(container);
+    },
+  };
+  console.log('AppointmentBookingPlugin defined:', window.AppointmentBookingPlugin);
+})();

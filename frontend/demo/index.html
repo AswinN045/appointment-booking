@@ -6,9 +6,15 @@
 </head>
 <body>
   <div id="appointment-container"></div>
-  <script src="../dist/appointment-booking-plugin.js" defer></script>
+  <script src="../dist/appointment-booking-plugin.js"></script>
   <script>
-    AppointmentBookingPlugin.init('appointment-container', 'http://localhost:8081/api');
+    console.log('Script loaded, checking plugin:', window.AppointmentBookingPlugin);
+    if (typeof AppointmentBookingPlugin !== 'undefined' && typeof AppointmentBookingPlugin.init === 'function') {
+      console.log('Plugin found, initializing...');
+      AppointmentBookingPlugin.init('appointment-container', 'http://localhost:8081/api');
+    } else {
+      console.error('AppointmentBookingPlugin.init is not a function or plugin not defined:', window.AppointmentBookingPlugin);
+    }
   </script>
 </body>
 </html>

@@ -5,14 +5,12 @@ module.exports = {
   output: {
     path: path.resolve(__dirname, 'dist'),
     filename: 'appointment-booking-plugin.js',
-    library: 'AppointmentBookingPlugin',
-    libraryTarget: 'window',
   },
   module: {
     rules: [
       {
         test: /\.jsx?$/,
-        exclude: /node_modules/, // Ensure node_modules is excluded
+        exclude: /node_modules/,
         use: {
           loader: 'babel-loader',
           options: {
@@ -30,5 +28,5 @@ module.exports = {
     extensions: ['.js', '.jsx'],
   },
   mode: 'production',
-  devtool: false, // Disable source maps to avoid source-map-loader issues
+  devtool: false,
 };
